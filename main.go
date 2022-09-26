@@ -20,7 +20,7 @@ func main() {
 	app.Get("/all", getAllHeaders)
 	app.Get("/all.json", getAllHeadersJSON)
 
-	app.Listen(":8888")
+	app.Listen(":3000")
 }
 
 // SOURCE: https://github.com/Ferluci/fasthttp-realip/blob/master/realip.go
