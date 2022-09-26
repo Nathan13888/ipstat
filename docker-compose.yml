@@ -8,9 +8,9 @@ services:
   app:
     image: docker.pkg.github.com/nathan13888/ipstat/api:latest
     container_name: ipstat
-    restart: unless_stopped
-    ports:
-      - 3000:3000
+    restart: unless-stopped
+      #ports:
+      #  - 3000:3000
     deploy:
       resources:
         limits:
