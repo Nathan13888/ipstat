@@ -17,6 +17,9 @@ func main() {
 	})
 	app.Get("/", getIP)
 	app.Get("/ip", getIP)
+	app.Get("/ua", getUserAgent)
+	app.Get("/useragent", getUserAgent)
+	app.Get("/forwarded", getXForwardedFor)
 	app.Get("/all", getAllHeaders)
 	app.Get("/all.json", getAllHeadersJSON)
 
@@ -88,6 +91,20 @@ func getIP(c *fiber.Ctx) error {
 		remoteIP = remoteAddr
 	}
 	return c.SendString(remoteIP)
+}
+
+func getUserAgent(c *fiber.Ctx) error {
+	if header := c.Request().Header.Peek(http.CanonicalHeaderKey("User-Agent")); header != nil {
+		return c.SendString(string(header))
+	}
+	return c.SendString("header not found")
+}
+
+func getXForwardedFor(c *fiber.Ctx) error {
+	if header := c.Request().Header.Peek(xForwardedForHeader); header != nil {
+		return c.SendString(string(header))
+	}
+	return c.SendString("header not found")
 }
 
 func getAllHeaders(c *fiber.Ctx) error {
